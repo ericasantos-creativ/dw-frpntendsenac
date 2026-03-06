@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pegue se conseguir</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #111;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+    }
+
+    #figurinha {
+      position: absolute;
+      font-size: 70px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tente clicar 😈</h1>
+  <h2>Pontos: <span id="pontos">0</span></h2>
+
+  <div id="figurinha">😎</div>
+
+  <script>
+    const figurinha = document.getElementById("figurinha");
+    const pontosTexto = document.getElementById("pontos");
+    let pontos = 0;
+
+    function mover() {
+      const largura = window.innerWidth - 80;
+      const altura = window.innerHeight - 80;
+
+      const x = Math.random() * largura;
+      const y = Math.random() * altura;
+
+      figurinha.style.left = x + "px";
+      figurinha.style.top = y + "px";
+    }
+
+    // Fugir quando tocar (celular)
+    figurinha.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      mover();
+    });
+
+    // Fugir quando passar o mouse (PC)
+    figurinha.addEventListener("mouseenter", mover);
+
+    // Se clicar muito rápido
+    figurinha.addEventListener("click", function() {
+      pontos++;
+      pontosTexto.innerText = pontos;
+      mover();
+    });
+
+    mover();
+  </script>
+
+</body>
+</html>

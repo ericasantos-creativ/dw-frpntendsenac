@@ -1,0 +1,86 @@
+body{
+display: flex;
+flex-wrap: wrap;
+
+}
+
+#Header {
+
+    background-color: #c94f4f;
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    width: 100%;
+    border: #c94f4f;
+}
+#Nav {
+    background-color: #24b02b;
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    border: #24b02b;
+   width: 100%;
+}
+#Main {
+    background-color: #9e14ae;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    text-align: center;
+    border : #9e14ae;
+    height: 3px;
+}
+#div1 {
+    background-color: #d9ff02;
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    border: #9e14ae;
+     width: 50%;
+}
+#Article {
+    background-color: #3873d2;
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    border: #9e14ae;
+}
+#Section {
+    background-color: #f8c3e6;
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    border: #435842;
+    width: 0100%;
+}
+#Figure {
+    background-color: #d9ff02;
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    border: #9e14ae;
+    width:50%;
+    height: 70px;
+}
+#Paragraph {
+    background-color: #fee901df;
+    color: rgb(18, 18, 18);
+    text-align: center; 
+    border: #9e14ae;
+     width: 50%;
+}
+#Aside {
+    background-color: #f8c3e6;
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    border: #9e14ae;
+    height:fit-content;
+    width: 500px;
+}
+#Footer {
+    background-color: #9e14ae;
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    border: #9e14ae;
+    width: 100%;
+   
+}
+@media (max-width: 1044px) {
+    #Aside , #Main {
+        width: 100%;
+        height: auto;
+    }   
+}

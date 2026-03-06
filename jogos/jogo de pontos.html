@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jogo Simples</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      background-color: #222;
+      color: white;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: none;
+      background-color: limegreen;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Jogo de Pontos</h1>
+  <h2>Pontos: <span id="pontos">0</span></h2>
+  <button onclick="ganharPonto()">Clique aqui!</button>
+
+  <script>
+    let pontos = 0;
+
+    function ganharPonto() {
+      pontos++;
+      document.getElementById("pontos").innerText = pontos;
+    }
+  </script>
+
+</body>
+</html>
