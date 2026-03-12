@@ -1,4 +1,4 @@
-var area = document.getElementById(area)
+var area = document.getElementById("area")
 
 
 function entrar () {
@@ -6,7 +6,7 @@ function entrar () {
 
 }
 function sair () {
-    area.innerHTML = `vai tarde ...`
-    area.innerHTML.backgroud = "red"
+    area.innerHTML = `vai tarde ...🥱`
+    area.style.backgroud = "red"
 
 }
