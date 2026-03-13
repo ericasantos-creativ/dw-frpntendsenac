@@ -10,7 +10,7 @@ function somar() {
 
   resultado.style.outline = '1px solid red'
 
-  /*  console.log(`O valor do num1 é $(num1).O valor do num2 é $(num2). Asoma deles é $(soma)`)
+  /* 
 */
 
 
