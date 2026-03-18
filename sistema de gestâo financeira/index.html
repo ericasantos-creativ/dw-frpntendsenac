@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="FinCore - Sistema completo de gestão financeira com múltiplas empresas, análises e relatórios.">
+    <meta name="theme-color" content="#7c3aed">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FinCore">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%237c3aed' width='192' height='192'/><text x='50%' y='50%' font-size='100' fill='white' text-anchor='middle' dominant-baseline='central' font-weight='bold'>FC</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%237c3aed' width='192' height='192'/><text x='50%' y='50%' font-size='100' fill='white' text-anchor='middle' dominant-baseline='central' font-weight='bold'>FC</text></svg>">
+    <title>FinCore - Sistema de Gestão Financeira</title>
+    <link rel="stylesheet" href="style.CSS">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- SPLASH SCREEN / CAPA DE ABERTURA -->
+    <section id="splashScreen" class="splash-screen active">
+        <div class="splash-background">
+            <div class="splash-blob blob-1"></div>
+            <div class="splash-blob blob-2"></div>
+            <div class="splash-blob blob-3"></div>
+        </div>
+        <div class="splash-content">
+            <div class="splash-logo">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h1 class="splash-title">FinCore</h1>
+            <p class="splash-subtitle">Seu Gestor Financeiro Inteligente</p>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+            <p class="splash-text">Carregando...</p>
+        </div>
+    </section>
+
+    <!-- TELA DE LOGIN -->
+    <section id="loginScreen" class="login-screen active" role="main" aria-label="Tela de login do FinCore">
+        <!-- BANNER DE ACESSIBILIDADE -->
+        <div id="accessibilityBanner" class="accessibility-banner" style="display: none;">
+            <div class="accessibility-banner-content">
+                <p>
+                    <i class="fas fa-universal-access"></i>
+                    <strong>Recursos de Acessibilidade Disponíveis:</strong>
+                </p>
+                <ul>
+                    <li><i class="fas fa-volume-up"></i> <strong>Leitor de Áudio:</strong> Lê em voz alta o conteúdo da página</li>
+                    <li><i class="fas fa-hands"></i> <strong>Intérprete LIBRAS:</strong> Exibe intérprete de Língua Brasileira de Sinais</li>
+                    <li><i class="fas fa-text-height"></i> <strong>Aumentar Fonte:</strong> Aumenta o tamanho da letra</li>
+                </ul>
+                <button onclick="closeAccessibilityBanner()" class="btn btn-small"><i class="fas fa-times"></i> Fechar</button>
+            </div>
+        </div>
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <i class="fas fa-wallet" aria-hidden="true"></i>
+                    <h1 aria-label="FinCore - Sistema de gestão financeira"> FinCore </h1>
+                    <p>Seu gestor financeiro pessoal</p>
+                </div>
+                
+                <div id="loginForm" class="login-form">
+                    <h2>Entrar</h2>
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Senha</label>
+                        <input type="password" id="loginPassword" placeholder="Sua senha" required>
+                    </div>
+                    <button id="loginBtn" class="btn btn-primary">Entrar</button>
+                    <p class="toggle-form">Não tem conta? <a href="#" onclick="toggleLoginRegister(event)">Cadastre-se</a></p>
+                </div>
+
+                <div id="registerForm" class="login-form" style="display: none;">
+                    <h2>Criar Conta</h2>
+                    <div class="form-group">
+                        <label for="registerName">Nome</label>
+                        <input type="text" id="registerName" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Senha</label>
+                        <input type="password" id="registerPassword" placeholder="Crie uma senha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword2">Confirmar Senha</label>
+                        <input type="password" id="registerPassword2" placeholder="Confirme a senha" required>
+                    </div>
+                    <button id="registerBtn" class="btn btn-primary">Cadastrar</button>
+                    <p class="toggle-form">Já tem conta? <a href="#" onclick="toggleLoginRegister(event)">Faça login</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TELA PRINCIPAL -->
+    <section id="mainScreen" class="main-screen">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>FinCore</span>
+                </div>
+                <div class="accessibility-panel">
+                    <div class="language-selector">
+                        <button id="langBtn" class="btn btn-small btn-accessibility" title="Alterar idioma" onclick="toggleLanguageDropdown()">
+                            <i class="fas fa-globe"></i>
+                        </button>
+                        <div id="langDropdown" class="lang-dropdown" style="display: none;">
+                            <button onclick="changeLanguage('pt-BR')" class="lang-option active" data-lang="pt-BR">🇧🇷 Português</button>
+                            <button onclick="changeLanguage('en')" class="lang-option" data-lang="en">🇺🇸 English</button>
+                        </div>
+                    </div>
+                    <button id="audioReaderBtn" class="btn btn-small btn-accessibility" title="Ativar leitor de áudio" onclick="toggleAudioReader()">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button id="librasBtn" class="btn btn-small btn-accessibility" title="Ativar intérprete de LIBRAS" onclick="toggleLibras()">
+                        <i class="fas fa-hands"></i>
+                    </button>
+                    <button id="fontSizeBtn" class="btn btn-small btn-accessibility" title="Aumentar fonte" onclick="increaseFontSize()">
+                        <i class="fas fa-text-height"></i>
+                    </button>
+                </div>
+                <div class="user-info">
+                    <button id="themeToggleBtn" class="btn btn-small btn-info" title="Alternar tema" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <span id="userName">Usuário</span>
+                    <button id="logoutBtn" class="btn btn-small btn-danger">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAVIGATION MENU -->
+        <nav class="nav-menu">
+            <div class="nav-container">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="#" class="nav-link" data-section="empresas"><i class="fas fa-building"></i> Empresas</a></li>
+                    <li><a href="#" class="nav-link" data-section="transacoes"><i class="fas fa-exchange-alt"></i> Transações</a></li>
+                    <li><a href="#" class="nav-link" data-section="relatorios"><i class="fas fa-file-chart-line"></i> Relatórios</a></li>
+                    <li><a href="#" class="nav-link" data-section="contas"><i class="fas fa-receipt"></i> Contas</a></li>
+                    <li><a href="#" class="nav-link" data-section="metas"><i class="fas fa-target"></i> Metas</a></li>
+                    <li><a href="#" class="nav-link" data-section="investimentos"><i class="fas fa-piggy-bank"></i> Investimentos</a></li>
+                    <li><a href="#" class="nav-link" data-section="fornecedores"><i class="fas fa-truck"></i> Fornecedores</a></li>
+                    <li><a href="#" class="nav-link" data-section="calendario"><i class="fas fa-calendar-alt"></i> Calendário</a></li>
+                    <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> Perfil</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- INTÉRPRETE DE LIBRAS -->
+        <div id="librasWindow" class="libras-window" style="display: none;">
+            <div class="libras-close">
+                <button onclick="toggleLibras()" title="Fechar intérprete">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="libras-content">
+                <div class="libras-video-placeholder">
+                    <i class="fas fa-video"></i>
+                </div>
+                <p class="libras-text">Intérprete de LIBRAS<br><small>Aguardando ativação de texto</small></p>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- DASHBOARD -->
+            <section id="dashboard-section" class="content-section">
+                <div class="cards-container">
+                    <div class="card card-balance">
+                        <div class="card-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Saldo Total</h3>
+                            <p class="amount" id="totalBalance">R$ 0,00</p>
+                        </div>
+                    </div>
+
+                    <div class="card card-income">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Ganhos</h3>
+                            <p class="amount income" id="totalIncome">R$ 0,00</p>
+                        </div>
+                    </div>
+
+                    <div class="card card-expense">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Gastos</h3>
+                            <p class="amount expense" id="totalExpense">R$ 0,00</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO TRANSAÇÕES -->
+            <section id="transacoes-section" class="content-section" style="display: none;">
+                <!-- ADICIONAR TRANSAÇÃO -->
+                <div class="add-transaction">
+                    <h2>Adicionar Transação</h2>
+                    <form id="transactionForm" class="form-transaction">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="transType">Tipo</label>
+                                <select id="transType" required>
+                                    <option value="ganho">Ganho</option>
+                                    <option value="gasto">Gasto</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transCategory">Categoria</label>
+                                <select id="transCategory" required>
+                                    <option value="">Selecione uma categoria</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transDescription">Descrição</label>
+                                <input type="text" id="transDescription" placeholder="Ex: Salário, Compras..." required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="transAmount">Valor (R$)</label>
+                                <input type="number" id="transAmount" placeholder="0.00" step="0.01" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transDate">Data</label>
+                                <input type="date" id="transDate" required>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-plus"></i> Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- FILTROS E HISTÓRICO -->
+                <div class="transactions-section">
+                    <div class="section-header">
+                        <h2>Histórico de Transações</h2>
+                    </div>
+
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="filterType">Filtrar por Tipo:</label>
+                            <select id="filterType">
+                                <option value="">Todos</option>
+                                <option value="ganho">Ganhos</option>
+                                <option value="gasto">Gastos</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="filterCategory">Filtrar por Categoria:</label>
+                            <select id="filterCategory">
+                                <option value="">Todas as categorias</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <input type="text" id="searchTransaction" placeholder="Buscar por descrição...">
+                        </div>
+
+                        <button id="clearFilters" class="btn btn-small">Limpar Filtros</button>
+                    </div>
+
+                    <div class="transactions-list" id="transactionsList">
+                        <p class="empty-message">Nenhuma transação registrada ainda</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO EMPRESAS -->
+            <section id="empresas-section" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Meus Negócios</h2>
+                    <button class="btn btn-success" id="addEmpresaBtn"><i class="fas fa-plus"></i> Nova Empresa</button>
+                </div>
+                <div id="empresasList" class="grid-container"></div>
+            </section>
+
+            <!-- SEÇÃO RELATÓRIOS -->
+            <section id="relatorios-section" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Relatórios e Análises</h2>
+                </div>
+                <div class="reports-container">
+                    <div class="report-card">
+                        <h3>Comparativo Mensal</h3>
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                    <div class="report-card">
+                        <h3>Comparativo Bimestral</h3>
+                        <canvas id="bimonthlyChart"></canvas>
+                    </div>
+                    <div class="report-card">
+                        <h3>Comparativo Semestral</h3>
+                        <canvas id="semesterChart"></canvas>
+                    </div>
+                    <div class="report-card">
+                        <h3>Comparativo Anual</h3>
+                        <canvas id="annualChart"></canvas>
+                    </div>
+                    <div class="report-card">
+                        <h3>Análise de Cenários</h3>
+                        <div id="scenarioAnalysis"></div>
+                    </div>
+                    <div class="report-card">
+                        <h3>Distribuição por Categoria</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                <button id="generateReportBtn" class="btn btn-primary"><i class="fas fa-download"></i> Gerar Relatório</button>
+            </section>
+
+            <!-- SEÇÃO CONTAS A PAGAR/RECEBER -->
+            <section id="contas-section" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Gestão de Contas</h2>
+                </div>
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-tab="contas-pagar">Contas a Pagar</button>
+                    <button class="tab-btn" data-tab="contas-receber">Contas a Receber</button>
+                    <button class="tab-btn" data-tab="proLabore">Pró-Labore</button>
+                </div>
+                <div id="contas-pagar" class="tab-content active">
+                    <form class="form-conta" id="formContasPagar">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <input type="text" placeholder="Ex: Aluguel, Fornecedor..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fornecedor</label>
+                                <input type="text" placeholder="Nome do fornecedor" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Valor</label>
+                                <input type="number" step="0.01" placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Data Vencimento</label>
+                                <input type="date" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Registrar</button>
+                        </div>
+                    </form>
+                    <div id="contasPagarList" class="accounts-list"></div>
+                </div>
+                <div id="contas-receber" class="tab-content">
+                    <form class="form-conta" id="formContasReceber">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <input type="text" placeholder="Ex: Venda, Aluguel..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Cliente</label>
+                                <input type="text" placeholder="Nome do cliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Valor</label>
+                                <input type="number" step="0.01" placeholder="0.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Data Vencimento</label>
+                                <input type="date" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Registrar</button>
+                        </div>
+                    </form>
+                    <div id="contasReceberList" class="accounts-list"></div>
+                </div>
+                <div id="proLabore" class="tab-content">
+                    <form id="formProLabore">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Valor Mensal (Pró-Labore Fixo)</label>
+                                <input type="number" id="proLaboreValor" step="0.01" placeholder="0.00" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Definir Pró-Labore</button>
+                        </div>
+                    </form>
+                    <div id="proLaboreInfo" class="info-box"></div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO METAS -->
+            <section id="metas-section" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Definição de Metas</h2>
+                    <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> Nova Meta</button>
+                </div>
+                <div id="metasList" class="goals-container"></div>
+            </section>
+
+            <!-- SEÇÃO INVESTIMENTOS -->
+            <section id="investimentos-section" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Central de Investimentos</h2>
+                    <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> Novo Investimento</button>
+                </div>
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-tab="investimentos-ativos">Investimentos Ativos</button>
+                    <button class="tab-btn" data-tab="custos-fixos">Custos Fixos</button>
+                    <button class="tab-btn" data-tab="custos-variaveis">Custos Variáveis</button>
+                    <button class="tab-btn" data-tab="capital-giro">Capital de Giro</button>
+                </div>
+                <div id="investimentos-ativos" class="tab-content active">
+                    <div id="investimentosList" class="investments-container"></div>
+                </div>
+                <div id="custos-fixos" class="tab-content">
+                    <form id="formCustosFix
+
+os">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <input type="text" placeholder="Ex: Aluguel, Salário..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Valor Mensal</label>
+                                <input type="number" step="0.01" placeholder="0.00" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Adicionar</button>
+                        </div>
+                    </form>
+                    <div id="custosFizosList" class="costs-list"></div>
+                </div>
+                <div id="custos-variaveis" class="tab-content">
+                    <form id="formCustosVariaveis">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <input type="text" placeholder="Ex: Comissão, Insumos..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Percentual ou Valor</label>
+                                <input type="text" placeholder="Ex: 10% ou R$ 100" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Adicionar</button>
+                        </div>
+                    </form>
+                    <div id="custosVariaveisList" class="costs-list"></div>
+                </div>
+                <div id="capital-giro" class="tab-content">
+                    <div id="capitalGiroAnalysis" class="info-box"></div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO FORNECEDORES -->
+            <section id="fornecedores-section" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Lista de Fornecedores</h2>
+                    <button class="btn btn-success" id="addFornecedorBtn"><i class="fas fa-plus"></i> Novo Fornecedor</button>
+                </div>
+                <form id="formFornecedor">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" placeholder="Nome da empresa" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Contato</label>
+                            <input type="text" placeholder="Telefone/Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <input type="text" placeholder="Produto/Serviço" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Prazo de Pagamento</label>
+                            <input type="text" placeholder="Ex: 30 dias" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Adicionar</button>
+                    </div>
+                </form>
+                <div id="fornecedoresList" class="suppliers-list grid-container"></div>
+            </section>
+
+            <!-- SEÇÃO CALENDÁRIO -->
+            <section id="calendario-section" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Calendário de Pagamentos e Recebimentos</h2>
+                </div>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button id="prevMonth" class="btn btn-small"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="monthYearDisplay"></h3>
+                        <button id="nextMonth" class="btn btn-small"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <table class="calendar-table" id="calendarTable"></table>
+                </div>
+                <div id="calendarEvents" class="calendar-events"></div>
+            </section>
+
+            <!-- SEÇÃO PERFIL -->
+            <section id="perfil-section" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Meu Perfil</h2>
+                </div>
+
+                <!-- CARD DE INFORMAÇÕES PESSOAIS -->
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3 id="profileName">Usuário</h3>
+                                <p id="profileEmail">email@example.com</p>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+
+                        <!-- SLOGAN DA EMPRESA -->
+                        <div class="profile-section">
+                            <h4><i class="fas fa-lightbulb"></i> Slogan da Empresa</h4>
+                            <div id="sloganDisplay" class="slogan-display">
+                                <p id="currentSlogan" class="slogan-text">Nenhum slogan definido</p>
+                            </div>
+                            <form id="formSlogan" class="form-slogan" style="display: none;">
+                                <input type="text" id="sloganInput" placeholder="Digite o slogan da sua empresa..." maxlength="200" required>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                    <button type="button" class="btn btn-secondary" onclick="cancelEditSlogan()">Cancelar</button>
+                                </div>
+                            </form>
+                            <button id="editSloganBtn" class="btn btn-primary btn-sm" onclick="editSlogan()"><i class="fas fa-edit"></i> Editar</button>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- MUDAR SENHA -->
+                        <div class="profile-section">
+                            <h4><i class="fas fa-lock"></i> Segurança</h4>
+                            <button id="changePasswordBtn" class="btn btn-warning" onclick="openChangePasswordForm()">
+                                <i class="fas fa-key"></i> Mudar Senha
+                            </button>
+                            <form id="formChangePassword" class="form-password" style="display: none;">
+                                <div class="form-group">
+                                    <label for="currentPassword">Senha Atual</label>
+                                    <input type="password" id="currentPassword" placeholder="Sua senha atual" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">Nova Senha</label>
+                                    <input type="password" id="newPassword" placeholder="Nova senha" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirmar Nova Senha</label>
+                                    <input type="password" id="confirmPassword" placeholder="Confirme a senha" required>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">Confirmar</button>
+                                    <button type="button" class="btn btn-secondary" onclick="cancelChangePassword()">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- COMPARTILHAR CONTA -->
+                        <div class="profile-section">
+                            <h4><i class="fas fa-share-alt"></i> Compartilhar Conta</h4>
+                            <p class="section-description">Permita que terceiros acessem sua conta financeira</p>
+                            <button id="shareAccountBtn" class="btn btn-info" onclick="openShareAccountForm()">
+                                <i class="fas fa-user-plus"></i> Compartilhar com Terceiros
+                            </button>
+                            <form id="formShareAccount" class="form-share" style="display: none;">
+                                <div class="form-group">
+                                    <label for="shareEmail">Email do Terceiro</label>
+                                    <input type="email" id="shareEmail" placeholder="email@example.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sharePermission">Nível de Acesso</label>
+                                    <select id="sharePermission" required>
+                                        <option value="view">Visualização (Apenas leitura)</option>
+                                        <option value="edit">Edição (Pode modificar)</option>
+                                        <option value="admin">Administração (Acesso completo)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shareExpiry">Data de Expiração (Opcional)</label>
+                                    <input type="date" id="shareExpiry">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">Compartilhar</button>
+                                    <button type="button" class="btn btn-secondary" onclick="cancelShareAccount()">Cancelar</button>
+                                </div>
+                            </form>
+
+                            <!-- LISTA DE COMPARTILHAMENTOS ATIVOS -->
+                            <div id="sharedAccountsList" class="shared-accounts-list" style="display: none;">
+                                <h5>Acessos Ativos</h5>
+                                <div id="sharedAccountsContainer" class="accounts-shares"></div>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- MUDAR/TROCAR CONTA -->
+                        <div class="profile-section">
+                            <h4><i class="fas fa-sign-in-alt"></i> Conta</h4>
+                            <p class="section-description">Faça login com outra conta ou crie uma nova</p>
+                            <div class="account-actions">
+                                <button id="switchAccountBtn" class="btn btn-secondary" onclick="switchAccount()">
+                                    <i class="fas fa-exchange-alt"></i> Trocar de Conta
+                                </button>
+                                <button id="deleteAccountBtn" class="btn btn-danger" onclick="deleteAccount()">
+                                    <i class="fas fa-trash"></i> Deletar Conta
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+
+    <!-- Chart.js for reports -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <!-- jsPDF for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- xlsx for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
